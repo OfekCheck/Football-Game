@@ -184,15 +184,20 @@ class Game(object):
             # Update the player sprite based on user keypresses
             self.player_right.update(pressed_keys)
             self.player_left.update(pressed_keys)
+            # Update ball sprites based on hitting walls and players
             self.ball.update(self.all_players)
+            # Image of shooting beside shoot bar
             shoot = pygame.image.load("assets/Shoot.png")
             shoot_image = pygame.transform.scale(shoot, (40, 40))
             self.screen.blit(shoot_image,(200,15))
+            # Image of running beside the running bar
             run = pygame.image.load("assets/run.png")
             run_image = pygame.transform.scale(run, (40, 40))
             self.screen.blit(run_image,(200,50))
+            # Get abilities of all players
             run_ability_right , shoot_ability_right = self.player_right.get_abilities()
             run_ability_left , shoot_ability_left = self.player_left.get_abilities()
+            # Draw the bars at the top
             pygame.draw.rect(self.screen,variables.green,(40,60,run_ability_left,20))
             pygame.draw.rect(self.screen,variables.white,(40,60,150,20),2)
             bar = pygame.Surface((150,18))
@@ -207,10 +212,14 @@ class Game(object):
             bar.fill(variables.red)
             self.screen.blit(bar , (810,30))
             pygame.draw.rect(self.screen,variables.green,(810,30,shoot_ability_right,18))
+            # Draw players
             self.screen.blit(self.player_right.surf, self.player_right.rect)
             self.screen.blit(self.player_left.surf, self.player_left.rect)
+            # Draw ball
             self.screen.blit(self.ball.surf, self.ball.rect)
+            # Draw header
             self.screen.blit(self.header_surface, (self.header_center,40))
+            # Draw scores
             self.screen.blit(self.score_right_surface,(self.screen_3rd_quarter-100,60))
             self.screen.blit(self.score_left_surface,(self.screen_quarter+100,60)) 
             pygame.display.flip()
